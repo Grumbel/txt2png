@@ -23,7 +23,6 @@ struct Options {
   int vspace;
   bool area_set;
   bool break_lines;
-  bool info_mode;
 
   Options()
   {
@@ -46,7 +45,6 @@ struct Options {
     area_set = false;
     
     break_lines = false;
-    info_mode   = false;
   }
 };
 
@@ -247,7 +245,6 @@ void parse_args(int argc, char** argv, Options& options)
   argp.add_option('n',  "title",    "NAME",    "Use NAME as title in the status line");
   argp.add_option('c',  "canvas",   "WxH",      "Use a canvas for size WxH+X+Y");
   argp.add_option('b',  "break",    "",        "Break long lines");
-  argp.add_option('i',  "info",     "",        "Print information about the text");
   argp.add_option('v',  "vspace",   "NUM",     "Amount of pixels between lines");
   argp.add_option('h',  "help",     "",        "Display this help");
   
@@ -294,10 +291,6 @@ void parse_args(int argc, char** argv, Options& options)
               std::cerr << "Expected WIDTHxHEIGHT as argument" << std::endl;
               exit(EXIT_FAILURE);
             }
-          break;
-
-        case 'i': // info
-          options.info_mode = true;
           break;
 
         case 'n': // title
