@@ -9,7 +9,7 @@
 struct Options {
   std::string font_file;
   int font_size;
-  std::string output_file;
+  std::string output_directory;
   std::string text_file;
   std::string type;
   std::string title;
@@ -29,7 +29,7 @@ struct Options {
   {
     font_file = "VeraMono.ttf";
     font_size = 10;
-    output_file = "out/page";
+    output_directory = "";
     type = "jpg";
       
     status = false;
@@ -240,7 +240,7 @@ void parse_args(int argc, char** argv, Options& options)
   argp.add_group("Options:");
   argp.add_option('f', "font",      "FONT",    "Use FONT for rendering the text, must be a ttf font (default: VerdanaMono.ttf)");
   argp.add_option('s',  "size",     "NUM",     "Set the font size to NUM (default: 12)");
-  argp.add_option('o', "output",    "FILE",    "Write the rendered image to file");
+  argp.add_option('o', "output",    "DIR",    "Write the rendered image to DIR");
   argp.add_option('t',  "type",     "TYPE",    "Use TYPE format when writing the file, can be 'jpg' or 'pgm'");
   argp.add_option('l',  "status-line",   "",        "Add a statusbar to the rendering output");
   argp.add_option('a',  "area", "WxH+X+Y","limit text rendering to the given area");
@@ -262,7 +262,7 @@ void parse_args(int argc, char** argv, Options& options)
           break;
 
         case 'o': // output
-          options.output_file = argp.get_argument();
+          options.output_directory = argp.get_argument();
           break;
 
         case 't': // type
@@ -357,7 +357,11 @@ int main(int argc, char** argv)
 {
   parse_args(argc, argv, options);
 
-  if (options.text_file.empty())
+  if (options.output_directory.empty())
+  {
+    std::cerr << "error: no --output argument given" << std::endl;
+  }
+  else if (options.text_file.empty())
     {
       std::cout << "Usage: " << argv[0] << " [OPTION]... TEXTFILE" << std::endl;
     }
@@ -419,10 +423,10 @@ int main(int argc, char** argv)
             }
 
           std::ostringstream str;
-          str << options.output_file
-              << "chapter" << std::setfill('0') << std::setw(2) << chapter << "/"
-              << "page"    << std::setfill('0') << std::setw(4) << page << ".jpg";
- 
+          str << options.output_directory << "/";
+          str << std::setfill('0') << std::setw(2) << chapter;
+          str << "_"    << std::setfill('0') << std::setw(4) << page << ".jpg";
+
           std::cout << "Writing: " << str.str() << std::endl;
           bitmap.write_jpg(str.str());
           bitmap.clear();
