@@ -14,6 +14,11 @@
             pname = "txt2png";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
+            postPatch = ''
+              substituteInPlace src/txt2png.cpp \
+                --replace '"VeraMono.ttf"' '"${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf"' \
+                --replace 'VeraMono.ttf' 'DejaVuSansMono.ttf'
+            '';
             enableParallelBuilding = true;
             nativeBuildInputs = with pkgs; [
               cmake
