@@ -236,7 +236,7 @@ void parse_args(int argc, char** argv, Options& options)
   argp.add_doc   ("text2image converts ascii text files to images");
 
   argp.add_group("Options:");
-  argp.add_option('f', "font",      "FONT",    "Use FONT for rendering the text, must be a ttf font (default: VerdanaMono.ttf)");
+  argp.add_option('f', "font",      "FONT",    "Use FONT for rendering the text, must be a ttf font (default: VeraMono.ttf)");
   argp.add_option('s',  "size",     "NUM",     "Set the font size to NUM (default: 12)");
   argp.add_option('o', "output",    "DIR",    "Write the rendered image to DIR");
   argp.add_option('t',  "type",     "TYPE",    "Use TYPE format when writing the file, can be 'jpg' or 'pgm'");
