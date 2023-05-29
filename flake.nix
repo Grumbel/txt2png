@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -16,7 +16,7 @@
             pname = "txt2png";
             version = "0.0.0";
 
-            src = nixpkgs.lib.cleanSource ./.;
+            src = ./.;
 
             postPatch = ''
               substituteInPlace src/txt2png.cpp \
