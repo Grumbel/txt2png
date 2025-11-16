@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 4.0)
 project(txt2png VERSION 0.0.0)
 
 include(GNUInstallDirs)
